@@ -216,7 +216,6 @@ class BloomFilter {
      */
 
     public boolean contains(String s) {
-
         // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE
         //
         // HINT: the bitmap is the private class variable 'data', and it is
@@ -224,7 +223,19 @@ class BloomFilter {
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
 
-        return false;
+        for (int n = 0; n < noHashes; n++) {
+            long hc = hashCode(s, n);
+            int bitNo = (int) (hc) & this.hashMask;
+
+            if (!data.get(bitNo)) {  // if any bit is not set, the element is not in the set
+                return false;
+            }
+        }
+        // all bits are set, element is in set
+        return true;
+
+
+
     }
 
 
